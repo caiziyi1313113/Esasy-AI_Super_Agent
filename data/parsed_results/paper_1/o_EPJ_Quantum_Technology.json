@@ -1,0 +1,511 @@
+{
+    "title": "o EPJ Quantum Technology",
+    "authors": "hans.brunner@huawei.com 1Munich Research Center, Huawei Technologies Duesseldorf GmbH, Munich, Germany Full list of author information is available at the end of the article",
+    "abstract": "Forthisreason,switchingofquantumchannelshasbeenproposed.Theﬁrstapproaches were done by selecting diﬀerent ﬁbres to connect several senders and receivers in a time multiplexing scheme [14–16]. In this manuscript we extend this approach, capitalising on the potential greater ﬂexibility of CV-QKD over discrete-variable QKD (DV-QKD), by allowing also wavelength multiplexing for a signiﬁcant increase of versatility. Abstract or small-scale wavelength switching has also been proposed earlier [17, 18]. Moreover, by utilising also the CV-QKD inherent higher tolerance to co-propagation with classical (much stronger) signals in optical ﬁbres [19] we demonstrate a substantial scaling-up of switching.",
+    "sections": [
+        {
+            "title": "Introduction",
+            "content": [
+                "a SpringerOpen Journal"
+            ]
+        },
+        {
+            "title": "Open Access",
+            "content": []
+        },
+        {
+            "title": "Demonstration of a switched CV-QKD",
+            "content": [
+                "Hans H. Brunner1*, Chi-Hang Fred Fung1, Momtchil Peev1, Rubén B. Méndez2, Laura Ortiz2, Juan P. Brito2, Vicente Martín2, José M. Rivas-Moscoso3, Felipe Jiménez3, Antonio A. Pastor3 and Diego R. López3"
+            ]
+        },
+        {
+            "title": "Abstract",
+            "content": [
+                "A quantum channel is a physical media able to carry quantum signals. Quantum key distribution (QKD) requires direct quantum channels between every pair of prepare-and-measure modules. This requirement heavily compromises the scalability of networks of directly connected QKD modules. A way to avoid this problem is to introduce switches that can dynamically reconﬁgure the set of connections. The reconﬁguration of a quantum channel implies that the modules using it can adapt to the new channel and peer.",
+                "The maturity and ﬂexibility of continuous-variable QKD (CV-QKD) qualiﬁes it as a strong contender for integration into optical communication networks. Here we present the implementation of a switched CV-QKD network embedded in the Madrid quantum testbed. The optical switching of the quantum paths signiﬁcantly reduces the amount of required QKD modules and facilitates the scalability of the network. This demonstration highlights the ﬂexibility and ease of integration of this emerging technology.",
+                "Keywords: QKD; CV-QKD; Quantum cryptography; Quantum communications; Quantum networks"
+            ]
+        },
+        {
+            "title": "1 Introduction",
+            "content": [
+                "QKDisafamilyofprotocolsthatgenerateasharedsecretkeybetweentwomutuallytrust- ing parties. In the speciﬁc case of prepare-and-measure protocols, these are the transmit- ter (Alice) and the receiver (Bob). The generated key is information-theoretically secure (ITS), which can be proven using quantum information theory [1, 2]. QKD protocols are superior to state-of-the-art key exchange protocols as the security of the latter is based on computational complexity assumptions, which could be broken as soon as suﬃciently powerful computers (quantum or classical) and/or algorithms are available [3, 4]. While limited in reach and bound to hardware, QKD protocols have also a higher security com- pared to post-quantum cryptography (PQC) protocols. Being ultimately founded on as- sumptions about quantum and classical computation complexity, PQC protocols can be demonstrated secure only under assumptions about computational security.",
+                "CV-QKD protocols, such as, e.g, GG02 [5], are based on modulated continuous-wave lasers and coherent detection, but unlike classical communication the optical power is ex-"
+            ]
+        },
+        {
+            "title": "Z) Springer",
+            "content": [
+                "© The Author(s) 2023. Open Access This article is licensed under a Creative Commons Attribution 4.0 International License, which permits use, sharing, adaptation, distribution and reproduction in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if changes were made. The images or other third party material in this article are included in the article’s Creative Commons licence,unless indicatedotherwise in a credit line to the material. If material is not included in the article’s Creative Commons licence and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. To view a copy of this licence, visit http://creativecommons.org/licenses/by/4.0/.",
+                "tremely attenuated. Protocol security is analysed under the assumption that all power lost between the transmitter and the receiver, a fraction typically close to unity, is collected by the eavesdropper. All noise on top of the unavoidable shot noise, which is a manifestation of the uncertainty principle in the measurement of a light state, might as well originate from an adversary. The no-cloning principle dictates that any attempt by the eavesdrop- per to obtain information on Alice and Bob’s data inevitably results in loss and noise [6]. As long as the eavesdropper’s information is below a threshold, it is still possible to distil a secure key [7, 8].",
+                "A general obstacle to practical utilisation of QKD based on optical communication is the inherently limited key-generation distance. QKD is realised by very weak optical sig- nals that are ultimately absorbed in any physical medium. Periodic ampliﬁcation, which is a standard practice in optical telecommunication technology, cannot be used for QKD. Ampliﬁcation, which can be seen as an attempt of cloning unknown quantum states, has to introduce noise on the channel. This noise trace has to be regarded as eavesdrop- ping and usually prohibits key generation. Instead, the reach of quantum signals may be extended by means of special quantum communication devices, known as quantum re- peaters (see [9–11] for an overview of the state of the art). Such devices would not oblit- erate the described level of security, but the development of quantum repeaters is still in an early experimental stage. For this reason it is not straight-forward to design and deploy QKD networks that are analogous to telecommunication ones.",
+                "As of today, the standard approach to QKD networking is the “trusted repeater” prin- ciple. This amounts to stitching together ﬁnite distance QKD links, a link being a pair of a sender and a receiver, by trusted locations. QKD keys are generated in the individ- ual links and then retransmitted by means of classical, albeit ITS, cryptographic methods (see [12, 13] for details). The majority of present-day QKD links are ﬁxed links with a sender permanently connected to a receiver over a given quantum channel, typically an optical ﬁbre. A fully meshed QKD network with N nodes would require approximately N2 ﬁxed links. In view of the availability and cost of current QKD technology, such an exponential grow in the number of required devices limits the size of QKD networks.",
+                "It should be noted that switching can signiﬁcantly reduce the number of required QKD devices that are situated within metropolitan-area locations but cannot increase the ﬁnite reach of QKD. This means that long-distance QKD still requires, as of today, trusted re- peaters. Without going into too much detail, we note that switching of quantum channels will be used in future end to-end quantum communication networks, sometimes popu- larlydubbed“thequantuminternet”[9,10,20].Suchnetworkswillrequireend-to-enden- tanglement realised by quantum repeaters. For cost reduction and to avoid massive over-",
+                "utilisation of resources, these repeaters could rely on optical switching for the distribution of entanglement.",
+                "The investigation of the switched CV-QKD network presented in this paper is embed- ded in the Madrid quantum network, which is a continuously growing environment for testing and developing quantum communication technologies [14, 21, 22]."
+            ]
+        },
+        {
+            "title": "2 CV-QKD prototypes",
+            "content": [
+                "The demonstrated switched QKD network is based on a 12.5 MHz-bandwidth low-noise and low-complexity CV-QKD system with Gaussian modulation. The system has evolved from the setup described in [23] to a phase- and polarisation-diverse modulation and re- ceiver structure.",
+                "The CV-QKD systems have an in-band synchronisation, only one dense wavelength di- vision multiplexing (DWDM) channel1 in the C-band in one direction is needed for the QKD operation. Additionally, a bidirectional, standard internet protocol (IP)-based rec- onciliation link is required. This link does not rely on a purely-optical point-to-point con- nection, it can be transported over any existing network infrastructure, e.g., Ethernet.",
+                "1Without loss of generality, here and in the following we refer to the 100 GHz grid in the C-band deﬁned by ITU-T G.694.1.",
+                "The devices can be conﬁgured to transmit with any ﬁgure between 0.0004 and 40 pho- tons per symbol on average in the quantum band. This corresponds to a transmit power range of approximately –122 dBm to –72 dBm at a carrier frequency of 193.4 THz. The in-band synchronisation signals are typically 30 dB to 40 dB stronger than the quantum signal.Theerrorcorrectionrunswithasingleﬁxed-ratecode,whichsupportsaSNRdown to –19.5 dB. This is a receiver sensitivity of approximately –105 dBm with 2.5 dB of re- ceiver loss and heterodyne detection [24]. Excess noise powers smaller than 50 dB below the shot noise can be detected (–141 dBm in the signal bandwidth at 193.4 THz). With trusted detector noise [25] and an inherent system noise as low as 0.15 mSNU,2 the sys- tem supports up to 23 dB of channel loss. The inherent system noise is attributed to the eavesdropper.",
+                "Simulated and measured key rates are depicted in Fig. 1 vs. the channel attenuation, in principle proportional to the ﬁbre-link length. In a metropolitan-area scenario the inser- tion loss of connectors and passive optical equipment and the state of the ﬁbre are likely to dominate the losses. All calculated curves in the plot follow [26] and assume optimistic values with 23 mSNU of trusted detector noise, 0.15 mSNU of untrusted system noise, and 2.5 dB of insertion loss in the receiver. These optimistic values are tight bounds to the span of actual values measured in the deployed devices.",
+                "The utilized error-correction code has a low error-correction eﬃciency at high SNR, but artiﬁcially added noise allows reducing the SNR to the eﬃcient regime [27, 28]. The artiﬁcially generated noise is added at the receiver after detection. It can reduce the infor- mation of the eavesdropper and extend the reach. While the error-correction eﬃciency improves linearly with an SNR reduction, the probability of an unsuccessful decoding in- creases rapidly close to the SNR limit. A careful selection of the target SNR for the artiﬁ- ciallyaddednoiseisnecessarytomaximisethekeyratedependingonthechannelsituation (see Fig. 1).",
+                "The ﬁnal key rate is several orders of magnitude smaller compared to the initial symbol rate of 12.5 MBd. This is a consequence of devoting most symbols to parameter estima- tion,ofalowcoderate,andofprivacyampliﬁcation.Thelimitedamountofcomputational resourcesin the prototypesis alsoa majorbottleneck fortheﬁnal key rate.The probability of a successful decoding depends on the amount of computational resources allowed for each decoding block. While more resources per block improve the probability of a suc- cessful decoding they reduce the number of blocks that can be processed per time with a ﬁxed amount of computational resources and a compromise has to be found."
+            ]
+        },
+        {
+            "title": "3 Optically-switched QKD network",
+            "content": [
+                "TheswitchedQKDnetworkisembeddedinthelargerMadridQKDnetwork[21].Asatel- lite map of the network can be found in [29]. The full sub-network conﬁguration with a focus on the switching and multiplexing setup is shown in Fig. 2. The seven nodes of the QKD-switching network are located all over the metropolitan area of Madrid and are in- terconnectedwithpreviouslydeployedﬁbres.Quirón,Quintín,Quijote,andQuevedoand",
+                "2milli shot-noise unit (SNU), i.e., normalised with respect to the shot-noise power. In this contribution, all excess-noise ﬁgures are referred to the receiver.",
+                "the ﬁbres between them belong to the RediMadrid academic communication network. Concepción, Norte, and Distrito and the ﬁbres between them belong to Telefónica. All of the locations are production sites.",
+                "Five QKD senders and ﬁve QKD receivers are distributed across seven nodes. The QKD modules are linked through ampliﬁer-free, low-loss ROADMs, which can switch the op- tical path for the QKD channels in a non-blocking fashion. A lightpath between any QKD sender and any QKD receiver can be established on at least one DWDM channel. While the QKD modules can be tuned to any wavelength in the C-band, the ﬁxed multiplexers constrain most QKD links to the DWDM channels at 193.4 THz (channel 34), 193.7 THz (channel 37), and 193.8 THz (channel 38).",
+                "Figure 4 in [30] shows a photograph of the setup at one of the nodes. The top six height units in the picture are ﬁlled with two QKD modules and the associated servers used for the experiments described in this contribution. In the same picture, one can ﬁnd the em- ployed add-drops, optical switch, and OTN equipment among other things.",
+                "With the following three stages the ROADMs are adapted to the speciﬁc requirements of the respective node. In the ﬁrst stage, the classical and quantum signals not relevant for this experiment are dropped and the diﬀerent QKD wavelengths split into diﬀerent paths for each incoming direction, respectively. This is implemented with demultiplexers, e.g., at Quevedo’s inputs from Quijote and Norte in Fig. 2. The direct input from the QKD sender does not need this stage. In the second stage, a non-blocking, all optical N × N switch routes the diﬀerent QKD signals towards their respective destination, e.g., the op- tical switch at Quevedo. In the third stage, the diﬀerent QKD wavelengths are combined and added to the non-QKD signals for each direction, respectively. This is implemented with multiplexers, e.g., at Quevedo’s outputs towards Quijote and Norte in Fig. 2. The direct output into the QKD receiver does not need this stage.",
+                "As an example for a switched optical path, the QKD link between Quijote and Norte is described in the following. The QKD sender at Quijote would be conﬁgured to a sup- ported DWDM channel, channel 37 or 38. The output signal of this sender would then pass through the optical switch at Quijote, which needs to connect this QKD input to- wards the appropriate multiplexer port towards Quevedo. At Quevedo, the QKD signal would be dropped by the demultiplexer into the optical switch at Quevedo. This switch needs to connect this input signal to the appropriate multiplexer port towards Norte. At the other end of the line, at Norte, the QKD signal would be dropped again by the demul- tiplexer and fed into the optical switch. Finally, the optical switch at Norte would connect the QKD signal to the input port of the QKD receiver. As long as the total loss along such a path is supported by the QKD devices, a QKD link for key generation can be established.",
+                "The QKD links are multiplexed with classical communication links in most ﬁbres be- tween the diﬀerent nodes. Most of these ﬁbres carry also QKD links from other vendors in the O-band or C-band. The reconciliation links of the QKD devices are transported jointly with the control signals and encrypted data through a packet-switched network with network switches at every node. This dedicated network is not depicted in detail in Fig. 2, but it accounts for most of the classical channels between the diﬀerent nodes.",
+                "The multiplexing between Quijote, Quevedo, and Norte is established with two consec- utive multichannel optical add-drop multiplexers (OADMs). The ﬁve classical channels are combined in a ﬁrst OADM before they are added in a second OADM to the two quan-",
+                "tum channels 37 and 38 and the alien QKD signal in the O-band. This is depicted with a single multiplexer in Fig. 2. The same is true vice versa for the demultiplexing side.",
+                "In the link between Quirón and Quijote the quantum channel is ﬁxed to channel 37 as it is simply connected as an alien wavelength to a free multiplexing port of the previously existing optical transport network (OTN) equipment. This link has three active classical channels plus our reconciliation link as a second alien wavelength. In the links Quijote to Quintín and Norte to Distrito the QKD channel is combined with the QKD channel of another vendor also in the C-band with single channel OADMs. Here, the QKD channel could be on any wavelength in the C-band except the single DWDM channel occupied by the alien QKD.",
+                "The multiplexing in the links Concepción to Distrito and Concepción to Norte is also implemented with two-stage multiplexers. In contrast to the central links, the QKD sig- nals here are ﬁrst multiplexed with a classical signal before they are added with an OADM to the alien QKD quantum and synchronisation channels. This ﬁrst multiplexer ﬁxes the QKD link Concepción to Distrito to DWDM channel 34 (193.4 THz). The QKD link Con- cepción to Norte is on the DWDM channel 37."
+            ]
+        },
+        {
+            "title": "4 Trusted transmit loss",
+            "content": [
+                "The deployed CV-QKD prototypes support the conﬁguration of a trusted transmit loss. The idea of a trusted transmit loss is to allow the system operator to shift the trusted boundary within the trusted transmit perimeter. By default the trusted boundary is the output port of the QKD transmitter. Additionally conﬁgured trusted transmit loss can shift this, e.g., to the output of a multiplexer and/or optical switch the output of the QKD transmitter is connected to within the trusted node perimeter.",
+                "Ideally, the trusted transmit loss is calibrated by comparing the optical output power of the QKD transmitter before and after the additionally trusted devices. Since such a calibration would lead to a possibly unwanted interruption of other traﬃc passing the same devices and adds an extra step when building the network, it is also acceptable to take conservative (secure) guesses about the insertion loss. Only the insertion loss that is certainly absorbed within the trusted transmit perimeter should be conﬁgured as trusted loss. In a multi-hop link only the insertion loss of the switch and/or multiplexer at the transmit node might be trusted, whereas the insertion loss of the switches, demultiplexers andmultiplexersofthenodesin-betweenoratthereceivermustnotberegardedastrusted transmit loss.",
+                "In the demonstrated network, each node is assumed to operate inside a trusted perime- ter (indicated by the grey boxes in Fig. 2) and the trusted boundary is always shifted to the boundary of the node. The trusted losses conﬁgured in the network at hand are listed in Table 1 and explained in more detail in the following. All assumed insertion losses have been checked to be lower than the actual insertion losses.",
+                "The 16-channel multiplexer at Quirón has more than 3.3 dB of insertion loss. Any con- nection from Quirón is conﬁgured with this ﬁgure as the trusted transmit loss.",
+                "For the optical switches at Quijote, Quevedo, and Norte an insertion loss of 0.5 dB each is used. The back-to-back links at Quijote, Quevedo, and Norte are each conﬁgured with thisinsertion lossastrustedtransmitloss. The single-channel OADMsatQuijotetowards Quintín and at Norte towards Distrito are assumed to have an insertion loss of 0.6 dB, re- spectively. The multi-channel OADMs between Quijote, Quevedo, and Norte have more",
+                "than 0.9 dB of loss each. Except for the back-to-back links, the trusted transmit loss of all links from Quijote, Quevedo, and Norte are conﬁgured to 1.1 dB or 1.4 dB each, which is the sum of the insertion losses of the respective OADM and switch.",
+                "For the optical switch at Concepción an insertion loss of 0.3 dB is used. The connec- tion between Concepción and Norte is equipped at Concepción with a 40-channel multi- plexer with an assumed insertion loss of 4.1 dB followed by a multi-channel OADM with an assumed insertion loss of 0.9 dB. This concatenation is depicted as a single “mux” in Fig. 2. All links using this connection are conﬁgured with a trusted transmit loss of 5.3 dB. The connection towards Distrito is equipped with an 8-channel multiplexer followed by a multi-channel OADM. Insertion losses of 2.1 dB and 0.9 dB are conﬁgured, respectively. Again, this concatenation is depicted as a single “mux” in Fig. 2. The link Concepción to Distrito is conﬁgured with a trusted loss of 3.3 dB.",
+                "Figure 4 Exemplary network conﬁgurations with all QKD senders and all QKD receivers active on either DWDM channel 34, 37, or 38. Note that multiple QKD links can be active at the same time on the same ﬁbre in such a conﬁguration (only two ﬁbres connect diﬀerent nodes). The given numbers are the measured channel loss and key rate handed over to the local key manager"
+            ]
+        },
+        {
+            "title": "5 Experimental results",
+            "content": [
+                "Figures 3 and 4 show several of the possible switching conﬁgurations, which can be achievedbyonlinereconﬁgurationoftheswitchesandDWDMchannelsoftheQKDmod- ules. All QKD links are on DWDM channel 37 in the conﬁgurations in Fig. 3, while some of the QKD links are in DWDM channels 34 or 38 in the conﬁgurations in Fig. 4. Note that there are four diﬀerent QKD links active in the ﬁbre pair between Quevedo and Norte in Fig. 4(a) and Quijote and Quevedo in Fig. 4(b), respectively. Taking the alien QKD links in the O-band into account, there are ﬁve diﬀerent QKD links active in these ﬁbre pairs.",
+                "Table 1 lists the conﬁgured trusted transmit loss, measured channel loss, and measured key rate for all links possible in the network conﬁguration described in Fig. 2. The given key rates are all within the range supported by the employed QKD devices, but they are preliminary ﬁgures as ﬁnite-size eﬀects could not be considered to their full extent for all scenarios. Although the systems were installed and running during a very long time period (close to three years), no long-term measurements of the key rate have been sys- tematicallydone.Thereisnoone-to-onemappingbetweenthemeasuredchannellossand the measured key rates because the receiver devices experience diﬀerent system noise and insertion loss. On the one hand this is because the receivers are diﬀerent modules and on the other hand the receivers are situated in diﬀerently air-conditioned environments since these are production facilities and not controlled laboratories. Some of the reported key rates are at the very edge of the rates supported by the modules and cannot be guaranteed in general. They might not be feasible if the receivers were swapped or the environmental conditions in the facilities changed.",
+                "Since the launch powers into the ﬁbres of the classical channels are rather weak (< 0 dBm) and the distances are mostly below 10km, there is only negligible Raman noise to be expected (< 0.05 mSNU) [31]. Especially the links towards Quintín and over the con- nectionNortetoDistritoexperienceverylittleRamannoiseastheyonlycopropagatewith very weak alien-QKD signals in the last hop. The variation in the channel losses between diﬀerent DWDM channels is mostly due to the diﬀerent insertion losses of the optical connections.",
+                "With ﬁve senders and ﬁve receivers there are up to twenty-ﬁve diﬀerent, loop-free links in a fully meshed network on the same DWDM channel. In contrast, with ﬁxed point-to- point QKD only ﬁve links could be established with ﬁve QKD pairs. Twenty out of these twenty-ﬁvelinksareoperationalinthedemonstratednetworkonDWDMchannel37.The other ﬁve have a too-high channel loss. Three of the twenty operational links are back-to-",
+                "backlinksinthesamenode,whichareusefulformaintenanceandtestingpurposes.There are ﬁfteen operational links on DWDM channel 38, again three of them are back-to-back links, and one operational link on DWDM channel 34. All together thirty-six loop-free links could be operated successfully."
+            ]
+        },
+        {
+            "title": "6 Conclusion",
+            "content": [
+                "An elaborate switched QKD network implementation, which was demonstrated in the Madrid quantum testbed, is described in detail. The switching is enabled by specialised ROADMs and online conﬁgurable DWDM channels in the QKD modules. The QKD modules support any-to-any connectivity and promptly adapt to changing link character- istics,allowing36diﬀerent,loop-freeQKDlinkstobeestablishedinasmall-sizednetwork with only ﬁve QKD senders and ﬁve QKD receivers. Avoiding intermediate trusted nodes and the need to have static ﬁbre links for the quantum channel between any two nodes in the network demonstrates the relevance of switching on the path to large-scale QKD networks."
+            ]
+        },
+        {
+            "title": "Funding",
+            "content": [
+                "We would like to thank the project MadQ-CM (Madrid Quantum de la Comunidad de Madrid) funded by the European Union (NextGenerationEU, PRTR-C17.I1) and by the Comunidad de Madrid (Programa de Acciones Complementarias), the project Quantum Information Technologies in Madrid (QUITEMAD-CM S2018/TCS-4342), and the European Union’s Horizon Europe research and innovation funding program under the project “Quantum Secure Networks Partnership” (QSNP, grant agreement No 101114043)."
+            ]
+        },
+        {
+            "title": "Abbreviations",
+            "content": [
+                "CV-QKD, continuous-variable QKD; demux, demultiplexer; DV-QKD, discrete-variable QKD; DWDM, dense wavelength division multiplexing; IP, internet protocol; ITS, information-theoretically secure; mux, multiplexer; OADM, optical add-drop multiplexer; OTN, optical transport network; QKD, quantum key distribution; ROADM, reconﬁgurable optical add-drop multiplexer; SNR, signal-to-noise ratio; SNU, shot-noise unit."
+            ]
+        },
+        {
+            "title": "Availability of data and materials",
+            "content": [
+                "Not applicable."
+            ]
+        },
+        {
+            "title": "Declarations",
+            "content": [
+                "Ethics approval and consent to participate Not applicable."
+            ]
+        },
+        {
+            "title": "Consent for publication",
+            "content": []
+        },
+        {
+            "title": "Competing interests",
+            "content": [
+                "The authors declare no competing interests."
+            ]
+        },
+        {
+            "title": "Author contributions",
+            "content": [
+                "H. H. Brunner, M. Peev, J. P. Brito, V. Martin, A. A. Pastor, and D. R. Lopez conceived the idea for the study. H. H. Brunner, C.-H. F. Fung, and M. Peev developed the QKD devices. R. B. Mendez, J. P. Brito, L. Ortiz, and V. Martin developed the key management and network layer. H. H. Brunner, C.-H. F. Fung, R. B. Mendez, J. P. Brito, L. Ortiz, V. Martin, J. M. Rivas-Moscoso, and F. Jimenez installed the ﬁeld deployment as well as operated the QKD devices and network layer. H. H. Brunner performed the measurements and created the ﬁgures, then wrote the manuscript with feedbacks from all authors. All authors contributed to the extensive discussions of the results."
+            ]
+        },
+        {
+            "title": "Author details",
+            "content": [
+                "1Munich Research Center, Huawei Technologies Duesseldorf GmbH, Munich, Germany. 2Center for Computational Simulation, Universidad Politécnica de Madrid, Madrid, Spain. 3Telefónica gCTIO/I+D, Madrid, Spain.",
+                "Received: 13 June 2023 Accepted: 7 September 2023"
+            ]
+        },
+        {
+            "title": "References",
+            "content": [
+                "• 1. Diamanti E, Lo HK, Qi B, Yuan Z. Practical challenges in quantum key distribution. npj Quantum Inf. 2016;2:16025. https://doi.org/10.1038/npjqi.2016.25.",
+                "• 2. Diamanti E, Leverrier A. Distributing secret keys with quantum continuous variables: principle, security and implementations. Entropy. 2015;17(9):6072–92. https://doi.org/10.3390/e17096072.",
+                "• 3. Kaplan M, Leurent G, Leverrier A, Naya-Plasencia M. Breaking symmetric cryptosystems using quantum period ﬁnding. In: Robshaw M, Katz J, editors. Advances in cryptology—CRYPTO 2016. LNCS. vol. 9815. Berlin: Springer; 2016. p. 207–37.",
+                "• 4. Shor PW. Algorithms for quantum computation: discrete logarithms and factoring. In: Proceedings 35th annual symposium on foundations of computer science. 1994. p. 124–34.",
+                "• 5. Grosshans F, Grangier P. Continuous variable quantum cryptography using coherent states. Phys Rev Lett. 2002;88(5):057902. https://doi.org/10.1103/PhysRevLett.88.057902.",
+                "• 6. Wootters WK, Zurek WH. A single quantum cannot be cloned. Nature. 1982;299:802–3. https://doi.org/10.1038/299802a0.",
+                "• 7. Leverrier A. Composable security proof for continuous-variable quantum key distribution with coherent states. Phys Rev Lett. 2015;114(7):070501. https://doi.org/10.1103/PhysRevLett.114.070501.",
+                "• 8. Leverrier A. Security of continuous-variable quantum key distribution via a Gaussian de Finetti reduction. Phys Rev Lett. 2017;118:200501. https://doi.org/10.1103/PhysRevLett.118.200501.",
+                "• 9. Azuma K, Economou SE, Elkouss D, Hilaire P, Jiang L, Lo HK et al. Quantum repeaters: from quantum networks to the quantum Internet. 2022. Preprint.",
+                "• 10. Azuma K, Kato G. Aggregating quantum repeaters for the quantum Internet. Phys Rev A. 2017;96:032332. https://doi.org/10.1103/PhysRevA.96.032332.",
+                "• 11. Briegel HJ, Dür W, Cirac JI, Zoller P. Quantum repeaters: the role of imperfect local operations in quantum communication. Phys Rev Lett. 1998;81:5932–5. https://doi.org/10.1103/PhysRevLett.81.5932.",
+                "• 12. Mehic M, Niemiec M, Rass S, Ma J, Peev M, Aguado A et al. Quantum key distribution: a networking perspective. ACM Comput Surv. 2020;53(5):96. https://doi.org/10.1145/3402192.",
+                "• 13. Cao Y, Zhao Y, Wang Q, Zhang J, Ng SX, Hanzo L. The evolution of quantum key distribution networks: on the road to the qinternet. IEEE Commun Surveys Tuts. 2022;24(2):839–94. https://doi.org/10.1109/COMST.2022.3144219.",
+                "• 14. Lopez DR, Martin V, Lopez V, de la Iglesia F, Pastor A, Brunner H et al. Demonstration of software deﬁned network services utilizing quantum key distribution fully integrated with standard telecommunication network. Quantum Rep. 2020;2(3):453–8. https://doi.org/10.3390/quantum2030032.",
+                "• 15. Yang YH, Li PY, Ma SZ, Qian XC, Zhang KY, Wang LJ et al. All optical metropolitan quantum key distribution network with post-quantum cryptography authentication. Opt Express. 2021;29(16):25859–67. https://doi.org/10.1364/OE.432944.",
+                "• 16. Martinez-Mateo J, Ciurana A, Martin V. Quantum key distribution based on selective post-processing in passive optical networks. IEEE Photonics Technol Lett. 2014;26(9):881–4. https://doi.org/10.1109/LPT.2014.2308921.",
+                "• 17. Ciurana A, Martínez-Mateo J, Peev M, Poppe A, Walenta N, Zbinden H et al. Quantum metropolitan optical network based on wavelength division multiplexing. Opt Express. 2014;22(2):1576–93. https://doi.org/10.1364/OE.22.001576.",
+                "• 18. Wang R, Tessinari RS, Hugues-Salas E, Bravalheri A, Uniyal N, Muqaddas AS et al. End-to-dnd quantum secured inter-domain 5G service orchestration over dynamically switched ﬂex-grid optical networks enabled by a q-ROADM. J Lightwave Technol. 2020;38(1):139–49. https://doi.org/10.1109/JLT.2019.2949864.",
+                "• 19. Karinou F, Brunner HH, Fung F, Comandar L, Bettelli S, Hillerkuss D et al. Towards the integration of CV quantum key distribution in deployed optical networks. IEEE Photonics Technol Lett. 2018;30(7):650–3. https://doi.org/10.1109/LPT.2018.2810334.",
+                "• 20. Kimble HJ. The quantum Internet. Nature. 2008;453:1023–30. https://doi.org/10.1038/nature07127.",
+                "• 21. García Cid MI, Ortiz Martín L, Ayuso M, Madrid V. Quantum network: a ﬁrst step to quantum Internet. In: 16th int. conf. Availability, reliability and security—ARES 21. Association for Computing Machinery; 2021.",
+                "• 22. Martin V, Aguado A, Salas P, Sanz AL, Brito JP, Lopez DR et al. The Madrid quantum network: a quantum-classical integrated infrastructure. In: OSA advanced photonics congress (AP) 2019. Optica Publishing Group; 2019.",
+                "• 23. Brunner HH, Comandar LC, Karinou F, Bettelli S, Hillerkuss D, Fung CHF et al. A low-complexity heterodyne CV-QKD architecture. In: 19th int. conf. Transparent optical networks—ICTON 2017. New York: IEEE Press; 2017.",
+                "• 24. Kikuchi K. Fundamentals of coherent optical ﬁber communications. J Lightwave Technol. 2016;34(1):157–79. https://doi.org/10.1109/JLT.2015.2463719.",
+                "• 25. Brunner HH, Bettelli S, Fung CHF, Peev M. Precise noise calibration for CV-QKD. In: 22nd int. conf. Transparent optical networks—ICTON 2020. New York: IEEE Press; 2020.",
+                "• 26. Laudenbach F, Pacher C, Fung CHF, Poppe A, Peev M, Schrenk B et al. Continuous-variable quantum key distribution with Gaussian modulation—the theory of practical implementations. 2017. Preprint.",
+                "• 27. Fung CHF. inventor; Huawei Technologies Duesseldorf GmbH, assignee. Quantum key distribution communication devices, methods and systems. EP3656079A1; 2022.",
+                "• 28. Usenko VC, Filip R. Trusted noise in continuous-variable quantum key distribution: a threat and a defense. Entropy. 2016;18(1):20. https://doi.org/10.3390/e18010020.",
+                "• 29. Hübel H, Kutschera F, Pacher C, Achleitner M, Strasser W, Vedovato F et al. Deployed QKD networks in Europe. In: Optical ﬁber communication conference (OFC). Optica Publishing Group; 2023.",
+                "• 30. van Deventer O, Spethmann N, Loeﬄer M, Amoretti M, van den Brink R, Bruno N et al. Towards European standards for quantum technologies. EPJ Quantum Technol. 2022;9:33 https://doi.org/10.1140/epjqt/s40507-022-00150-1.",
+                "• 31. Karinou F, Comandar L, Brunner HH, Hillerkuss D, Fung F, Bettelli S et al. Experimental evaluation of the impairments on a QKD system in a 20-channel WDM co-existence scheme. In: Photonics society summer topical meeting series (SUM). New York: IEEE Press; 2017. p. 145–6."
+            ]
+        },
+        {
+            "title": "Publisher’s Note",
+            "content": [
+                "Springer Nature remains neutral with regard to jurisdictional claims in published maps and institutional aﬃliations."
+            ]
+        }
+    ],
+    "tables": [
+        {
+            "content": "Sender node Receiver node Optical channel Trusted loss Channel loss [THz] [dB] [dB] Concepción Distrito 193.4 3.3 19.8 (via Norte) 193.7 5.3 20.1 Norte 193.7 5.3 11.1 Quevedo 193.7 5.3 15.3 Quijote 193.7 too high Quintín 193.7 too high Norte Distrito 193.7 1.1 10.2 193.8 1.1 10.5 Norte 193.7 0.5 1.6 193.8 0.5 1.7 Quevedo 193.7 1.4 5.1 193.8 1.4 5.2 Quijote 193.7 1.4 10.3 193.8 1.4 12.1 Quintín 193.7 1.4 20.9 193.8 1.4 22.5 Quevedo Distrito 193.7 1.4 13.3 193.8 1.4 13.3 Norte 193.7 1.4 3.8 193.8 1.4 4.3 Quevedo 193.7 0.5 0.1 193.8 0.5 0.2 Quijote 193.7 1.4 4.8 193.8 1.4 5.9 Quintín 193.7 1.4 15.5 193.8 1.4 17.3 Quijote Distrito 193.7 1.4 21.0 193.8 1.4 20.9 Norte 193.7 1.4 11.5 193.8 1.4 11.5 Quevedo 193.7 1.4 6.6 193.8 1.4 6.9 Quijote 193.7 0.5 1.2 193.8 0.5 1.3 Quintín 193.7 1.1 11.4 193.8 1.1 11.8 Quirón Distrito 193.7 too high Norte 193.7 too high Quevedo 193.7 3.3 19.0 Quijote 193.7 3.3 12.1 Key rate [kb/s] 0.09 0.11 7.4 2.4 0 0 8.4 8.1 17 17 9.0 3.2 7.1 5.2 0.07 0.01 4.3 4.3 8.7 12 14 14 11 7.8 1.8 0.7 0.04 0.04 6.0 6.6 4.5 10 12 16 5.5 6.2 0 0 0.07 3.3",
+            "metadata": {
+                "detection_class_prob": 0.8706993460655212,
+                "coordinates": {
+                    "points": [
+                        [
+                            314.22869873046875,
+                            271.2083435058594
+                        ],
+                        [
+                            314.22869873046875,
+                            1502.1937255859375
+                        ],
+                        [
+                            1329.5380859375,
+                            1502.1937255859375
+                        ],
+                        [
+                            1329.5380859375,
+                            271.2083435058594
+                        ]
+                    ],
+                    "system": "PixelSpace",
+                    "layout_width": 1654,
+                    "layout_height": 2205
+                },
+                "last_modified": "2025-07-17T23:03:22",
+                "text_as_html": "<table><thead><tr><th rowspan=\"2\">Sender node</th><th rowspan=\"2\">Receiver node</th><th rowspan=\"2\">Optical channel [THz]</th><th rowspan=\"2\">Trusted loss [dB]</th><th rowspan=\"2\">Channel loss [dB]</th><th rowspan=\"2\">Key rate [kb/s]</th></tr></thead><tbody><tr><td rowspan=\"6\">Concepcién</td><td>Distrito</td><td>193.4</td><td>3.3</td><td>19.8</td><td>0.09</td></tr><tr><td>(via Norte)</td><td>193.7</td><td>53</td><td>20.1</td><td>0.11</td></tr><tr><td>Norte</td><td>193.7</td><td>53</td><td>11</td><td>74</td></tr><tr><td>Quevedo</td><td>193.7</td><td>53</td><td>15.3</td><td>24</td></tr><tr><td>Quijote</td><td>193.7</td><td></td><td>too high</td><td>0</td></tr><tr><td>Quintin</td><td>193.7</td><td></td><td>too high</td><td>0</td></tr><tr><td>Norte</td><td rowspan=\"2\">Distrito</td><td>193.7</td><td>|</td><td>10.2</td><td>84</td></tr><tr><td rowspan=\"9\"></td><td>193.8</td><td>1d</td><td>10.5</td><td>8.1</td></tr><tr><td>Norte</td><td>193.7</td><td>0.5</td><td>1.6</td><td>7</td></tr><tr><td></td><td>193.8</td><td>0.5</td><td>17</td><td>7</td></tr><tr><td>Quevedo</td><td>193.7</td><td>14</td><td>5.1</td><td>9.0</td></tr><tr><td></td><td>193.8</td><td>14</td><td>5.2</td><td>3.2</td></tr><tr><td rowspan=\"2\">Quijote</td><td>193.7</td><td>14</td><td>10.3</td><td>71</td></tr><tr><td>193.8</td><td>14</td><td>12.1</td><td>5.2</td></tr><tr><td rowspan=\"2\">Quintin</td><td>193.7</td><td>14</td><td>20.9</td><td>0.07</td></tr><tr><td>193.8</td><td>14</td><td>22.5</td><td>0.01</td></tr><tr><td rowspan=\"12\">Quevedo Quijote</td><td rowspan=\"2\">Distrito</td><td>193.7</td><td>14</td><td>133</td><td>43</td></tr><tr><td>193.8</td><td>14</td><td>13.3</td><td>43</td></tr><tr><td rowspan=\"2\">Norte</td><td>193.7</td><td>14</td><td>3.8</td><td>87</td></tr><tr><td>193.8</td><td>14</td><td>43</td><td>12</td></tr><tr><td rowspan=\"2\">Quevedo</td><td>193.7</td><td>05</td><td>01</td><td>14</td></tr><tr><td>193.8</td><td>0.5</td><td>0.2</td><td>14</td></tr><tr><td>Quijote</td><td>193.7</td><td>14</td><td>48</td><td>1</td></tr><tr><td></td><td>193.8</td><td>14</td><td>59</td><td>78</td></tr><tr><td rowspan=\"2\">Quintin</td><td>193.7</td><td>14</td><td>15.5</td><td>18</td></tr><tr><td>193.8</td><td></td><td>173</td><td>07</td></tr><tr><td></td><td></td><td>14</td><td></td><td></td></tr><tr><td>Distrito</td><td>193.7</td><td>14</td><td>21.0</td><td>0.04</td></tr><tr><td rowspan=\"9\"></td><td></td><td>193.8</td><td>14</td><td>20.9</td><td>0.04</td></tr><tr><td rowspan=\"3\">Norte Quevedo</td><td>193.7</td><td>14</td><td>115</td><td>6.0</td></tr><tr><td>193.8</td><td>14</td><td>11.5</td><td>66</td></tr><tr><td>193.7</td><td>14</td><td>66</td><td>45</td></tr><tr><td></td><td>193.8</td><td>14</td><td>69</td><td>10</td></tr><tr><td rowspan=\"2\">Quijote</td><td>193.7</td><td>05</td><td>1.2</td><td>12</td></tr><tr><td>193.8</td><td>0.5</td><td>13</td><td>16</td></tr><tr><td></td><td>193.7</td><td>1</td><td>4</td><td>55</td></tr><tr><td>Quintin</td><td>193.8</td><td>1d</td><td>118</td><td>6.2</td></tr><tr><td rowspan=\"4\">Quirén</td><td></td><td>193.7</td><td></td><td></td><td>0</td></tr><tr><td>Distrito</td><td>193.7</td><td></td><td>too high too</td><td>0</td></tr><tr><td>Norte</td><td></td><td></td><td>high</td><td></td></tr><tr><td>Quevedo Quijote</td><td>193.7 193.7</td><td>33 33</td><td>19.0 12.1</td><td>0.07 33</td></tr></tbody></table>",
+                "filetype": "application/pdf",
+                "languages": [
+                    "eng"
+                ],
+                "page_number": 10,
+                "image_path": "D:\\softwareprogect\\esasy-master\\data\\parsed_results\\paper_1\\figures\\table-10-1.jpg",
+                "file_directory": "D:\\softwareprogect\\esasy-master\\data\\uploads",
+                "filename": "dabb82cd-52f4-47d0-b6d3-2a6333568970_s40507-023-00194-x.pdf",
+                "parent_id": "74734107f1a625ea00e07afde5eb3fe7"
+            }
+        }
+    ],
+    "images": [
+        {
+            "content": "RESEARCH ",
+            "metadata": {
+                "detection_class_prob": 0.44199126958847046,
+                "coordinates": {
+                    "points": [
+                        [
+                            155.3006591796875,
+                            147.6328887939453
+                        ],
+                        [
+                            155.3006591796875,
+                            290.5279235839844
+                        ],
+                        [
+                            374.0767604999997,
+                            290.5279235839844
+                        ],
+                        [
+                            374.0767604999997,
+                            147.6328887939453
+                        ]
+                    ],
+                    "system": "PixelSpace",
+                    "layout_width": 1654,
+                    "layout_height": 2205
+                },
+                "last_modified": "2025-07-17T23:03:22",
+                "filetype": "application/pdf",
+                "languages": [
+                    "eng"
+                ],
+                "page_number": 1,
+                "image_path": "D:\\softwareprogect\\esasy-master\\data\\parsed_results\\paper_1\\figures\\figure-1-1.jpg",
+                "file_directory": "D:\\softwareprogect\\esasy-master\\data\\uploads",
+                "filename": "dabb82cd-52f4-47d0-b6d3-2a6333568970_s40507-023-00194-x.pdf"
+            }
+        },
+        {
+            "content": "® a",
+            "metadata": {
+                "detection_class_prob": 0.5636091828346252,
+                "coordinates": {
+                    "points": [
+                        [
+                            1415.9161376953125,
+                            302.86126708984375
+                        ],
+                        [
+                            1415.9161376953125,
+                            380.0694580078125
+                        ],
+                        [
+                            1491.447265625,
+                            380.0694580078125
+                        ],
+                        [
+                            1491.447265625,
+                            302.86126708984375
+                        ]
+                    ],
+                    "system": "PixelSpace",
+                    "layout_width": 1654,
+                    "layout_height": 2205
+                },
+                "last_modified": "2025-07-17T23:03:22",
+                "filetype": "application/pdf",
+                "languages": [
+                    "eng"
+                ],
+                "page_number": 1,
+                "image_path": "D:\\softwareprogect\\esasy-master\\data\\parsed_results\\paper_1\\figures\\figure-1-2.jpg",
+                "file_directory": "D:\\softwareprogect\\esasy-master\\data\\uploads",
+                "filename": "dabb82cd-52f4-47d0-b6d3-2a6333568970_s40507-023-00194-x.pdf"
+            }
+        },
+        {
+            "content": "10? 107 10° key rate [kb/s] lo q F | -@- ideal 4 F ideal AN | | |--- SNR 0.0125 a 10~* x - SNR 0.0118 ~ SNR 0.0114 x measured L L L L i L L L L L L L 0 2 4 6 8 10 12 14 16 18 20 22 24 channel attenuation [dB]",
+            "metadata": {
+                "detection_class_prob": 0.930841863155365,
+                "coordinates": {
+                    "points": [
+                        [
+                            330.7569885253906,
+                            237.240478515625
+                        ],
+                        [
+                            330.7569885253906,
+                            953.292724609375
+                        ],
+                        [
+                            1322.6676025390625,
+                            953.292724609375
+                        ],
+                        [
+                            1322.6676025390625,
+                            237.240478515625
+                        ]
+                    ],
+                    "system": "PixelSpace",
+                    "layout_width": 1654,
+                    "layout_height": 2205
+                },
+                "last_modified": "2025-07-17T23:03:22",
+                "filetype": "application/pdf",
+                "languages": [
+                    "eng"
+                ],
+                "page_number": 3,
+                "image_path": "D:\\softwareprogect\\esasy-master\\data\\parsed_results\\paper_1\\figures\\figure-3-3.jpg",
+                "file_directory": "D:\\softwareprogect\\esasy-master\\data\\uploads",
+                "filename": "dabb82cd-52f4-47d0-b6d3-2a6333568970_s40507-023-00194-x.pdf"
+            }
+        },
+        {
+            "content": "O-band O-band alien QKD —_O-band | | O-band —__, alien 3|.______>|E 3a, § @ | 34, . <4] FA BL 34) as a % a og xB Rye 4 Sey <3 og aL Ll & os 71x) ¢ & | 3 [pase - SLs E4|zZ dail — el ETS ars alien = =) Ls | > alien lien QKD eweM — lien © a) o S 8 2 Gy iS) demux mux 7 alien QKD <O-band | my <f alien QD classical <a! 4 . Ly . g) 038 >| + as 5| <2 18 ae 2/co8 & os | Zones Seow, | | | | sxpwom saa BBL copaneatien Qk demux mux 3.9km mux demux 7 raf leq|_|] LO2224> alien QKD lassical By 8) Le _ cassical Ss ex DWDM x DWDM OS ° . 1 3 5 < 5 o a> 0 I< as 3 x3 |e Ble xz Ss) og zk os fe] 2 _ Tenn wom | |\" | | sx pwoM, Ta aien KO | BP AR mux demux 6.5km demux mux x alien QKD <O-Pand] | Jol Tal classical <=] classical a <x DWDM 5x DWDM 2 iS 7 5 5 ag a a +5 $ 5 Fa 3 fej & | 2 eB 8 & alien QKD y V demux mux § 2 S lez 34 | 24 > alien classical —2* DWDM & a3 ae a 3 3 18 | vas . & & [so Les _, a8 as xe x os os",
+            "metadata": {
+                "detection_class_prob": 0.840932309627533,
+                "coordinates": {
+                    "points": [
+                        [
+                            489.3183288574219,
+                            219.4032745361328
+                        ],
+                        [
+                            489.3183288574219,
+                            1711.2113037109375
+                        ],
+                        [
+                            1082.202392578125,
+                            1711.2113037109375
+                        ],
+                        [
+                            1082.202392578125,
+                            219.4032745361328
+                        ]
+                    ],
+                    "system": "PixelSpace",
+                    "layout_width": 1654,
+                    "layout_height": 2205
+                },
+                "last_modified": "2025-07-17T23:03:22",
+                "filetype": "application/pdf",
+                "languages": [
+                    "eng"
+                ],
+                "page_number": 5,
+                "image_path": "D:\\softwareprogect\\esasy-master\\data\\parsed_results\\paper_1\\figures\\figure-5-4.jpg",
+                "file_directory": "D:\\softwareprogect\\esasy-master\\data\\uploads",
+                "filename": "dabb82cd-52f4-47d0-b6d3-2a6333568970_s40507-023-00194-x.pdf"
+            }
+        },
+        {
+            "content": "QKD Quirén Concepcién QKD sender [37 Quijote Quevedo Norte sender ow QKD QKD oe QKD al a2 sender es receiver Ss sender [7 ae 37] 3 z zy aa 4 37 J ov ae QKD QKD QKD az anal | receiver sender receiver Fa QKD QKD receiver oe a receiver Quintin Distrito (a) Network configuration 1 QKD] Suitén Concepcion | OKD sender Quijote Quevedo Norte sender 37 a? s| QKD QKD QKD ow 32 sender receiver oe sender Se 35 83 nS \"Se Li 2x 37 aaa ers oe yi — S$ = 2 QKD QKD QKD ge aw receiver sender receiver —_ Quintin Distrito (b) Network configuration 2 QKD Quirén Concepcién | QKD sender |37 Quijote ot Quevedo Norte sender as QKD 32 QKD QKD a2 sender [77 \"| receiver} = 2% sender Ss ee Ey] es QkKD QKD sy QKD et -__,| ¥ [22 —____ sa receiver sender es receiver Rs a5 a Quintin Distrito (c) Network configuration 3",
+            "metadata": {
+                "detection_class_prob": 0.8608844876289368,
+                "coordinates": {
+                    "points": [
+                        [
+                            307.41815185546875,
+                            208.85784912109375
+                        ],
+                        [
+                            307.41815185546875,
+                            1375.0755615234375
+                        ],
+                        [
+                            1344.693115234375,
+                            1375.0755615234375
+                        ],
+                        [
+                            1344.693115234375,
+                            208.85784912109375
+                        ]
+                    ],
+                    "system": "PixelSpace",
+                    "layout_width": 1654,
+                    "layout_height": 2205
+                },
+                "last_modified": "2025-07-17T23:03:22",
+                "filetype": "application/pdf",
+                "languages": [
+                    "eng"
+                ],
+                "page_number": 8,
+                "image_path": "D:\\softwareprogect\\esasy-master\\data\\parsed_results\\paper_1\\figures\\figure-8-5.jpg",
+                "file_directory": "D:\\softwareprogect\\esasy-master\\data\\uploads",
+                "filename": "dabb82cd-52f4-47d0-b6d3-2a6333568970_s40507-023-00194-x.pdf"
+            }
+        },
+        {
+            "content": "OK Quirén same fiber Concepcién OKD sender [37 Quijote Quevedo | Norte sender | on QKD QKD | | QkD “Te a2 sender receiver {} sender ce a% | ee ao = K Ul 38 aa ¥ a3 25 es ag QkKD QKD QkKD le = receiver sender receiver No v QKD QKD receiver | 6 intin same fiber Distrito [receiver (a) Network configuration 4 QKD Quirén same fiber Concepcién QKD sender Quijote Quevedo Norte sender Ea \\ 3 a QKD \\ QKD QKD 62 sender \\\\ receiver sender as 38 \\ F 37 les si 4 33 32 r a3 ~ re ag QKD || aa} QKD \"s QKD receiver f at sender ai receiver ¥ | 32 QKD | oe QKD recev® | Quintin same fiber Distrito LTce¥er (b) Network configuration 5",
+            "metadata": {
+                "detection_class_prob": 0.9145966172218323,
+                "coordinates": {
+                    "points": [
+                        [
+                            314.953125,
+                            227.34671020507812
+                        ],
+                        [
+                            314.953125,
+                            958.2178344726562
+                        ],
+                        [
+                            1328.6480712890625,
+                            958.2178344726562
+                        ],
+                        [
+                            1328.6480712890625,
+                            227.34671020507812
+                        ]
+                    ],
+                    "system": "PixelSpace",
+                    "layout_width": 1654,
+                    "layout_height": 2205
+                },
+                "last_modified": "2025-07-17T23:03:22",
+                "filetype": "application/pdf",
+                "languages": [
+                    "eng"
+                ],
+                "page_number": 9,
+                "image_path": "D:\\softwareprogect\\esasy-master\\data\\parsed_results\\paper_1\\figures\\figure-9-6.jpg",
+                "file_directory": "D:\\softwareprogect\\esasy-master\\data\\uploads",
+                "filename": "dabb82cd-52f4-47d0-b6d3-2a6333568970_s40507-023-00194-x.pdf"
+            }
+        },
+        {
+            "content": "Published online: 21 September 2023",
+            "metadata": {
+                "coordinates": {
+                    "points": [
+                        [
+                            796.3416666666666,
+                            1867.225
+                        ],
+                        [
+                            796.3416666666666,
+                            1897.225
+                        ],
+                        [
+                            1163.0083333333332,
+                            1897.225
+                        ],
+                        [
+                            1163.0083333333332,
+                            1867.225
+                        ]
+                    ],
+                    "system": "PixelSpace",
+                    "layout_width": 1654,
+                    "layout_height": 2205
+                },
+                "last_modified": "2025-07-17T23:03:22",
+                "filetype": "application/pdf",
+                "languages": [
+                    "eng"
+                ],
+                "page_number": 11,
+                "image_path": "D:\\softwareprogect\\esasy-master\\data\\parsed_results\\paper_1\\figures\\figure-11-7.jpg",
+                "file_directory": "D:\\softwareprogect\\esasy-master\\data\\uploads",
+                "filename": "dabb82cd-52f4-47d0-b6d3-2a6333568970_s40507-023-00194-x.pdf"
+            }
+        }
+    ],
+    "formulas": [],
+    "references": [
+        "Vulnerabilitytoside channelattacksandpossiblecountermeasures[2]arecurrentlynot considered."
+    ],
+    "full_text": "Brunner et al. EPJQuantumTechnology (2023) 10:38 https://doi.org/10.1140/epjqt/s40507-023-00194-x\n\nRESEARCH \n\no EPJ Quantum Technology\n\na SpringerOpen Journal\n\nOpen Access\n\nDemonstration of a switched CV-QKD\n\nnetwork\n\n® a\n\nHans H. Brunner1*, Chi-Hang Fred Fung1, Momtchil Peev1, Rubén B. Méndez2, Laura Ortiz2, Juan P. Brito2, Vicente Martín2, José M. Rivas-Moscoso3, Felipe Jiménez3, Antonio A. Pastor3 and Diego R. López3\n\n*Correspondence:\n\nhans.brunner@huawei.com 1Munich Research Center, Huawei Technologies Duesseldorf GmbH, Munich, Germany Full list of author information is available at the end of the article\n\nAbstract\n\nA quantum channel is a physical media able to carry quantum signals. Quantum key distribution (QKD) requires direct quantum channels between every pair of prepare-and-measure modules. This requirement heavily compromises the scalability of networks of directly connected QKD modules. A way to avoid this problem is to introduce switches that can dynamically reconﬁgure the set of connections. The reconﬁguration of a quantum channel implies that the modules using it can adapt to the new channel and peer.\n\nThe maturity and ﬂexibility of continuous-variable QKD (CV-QKD) qualiﬁes it as a strong contender for integration into optical communication networks. Here we present the implementation of a switched CV-QKD network embedded in the Madrid quantum testbed. The optical switching of the quantum paths signiﬁcantly reduces the amount of required QKD modules and facilitates the scalability of the network. This demonstration highlights the ﬂexibility and ease of integration of this emerging technology.\n\nKeywords: QKD; CV-QKD; Quantum cryptography; Quantum communications; Quantum networks\n\n1 Introduction\n\nQKDisafamilyofprotocolsthatgenerateasharedsecretkeybetweentwomutuallytrust- ing parties. In the speciﬁc case of prepare-and-measure protocols, these are the transmit- ter (Alice) and the receiver (Bob). The generated key is information-theoretically secure (ITS), which can be proven using quantum information theory [1, 2]. QKD protocols are superior to state-of-the-art key exchange protocols as the security of the latter is based on computational complexity assumptions, which could be broken as soon as suﬃciently powerful computers (quantum or classical) and/or algorithms are available [3, 4]. While limited in reach and bound to hardware, QKD protocols have also a higher security com- pared to post-quantum cryptography (PQC) protocols. Being ultimately founded on as- sumptions about quantum and classical computation complexity, PQC protocols can be demonstrated secure only under assumptions about computational security.\n\nCV-QKD protocols, such as, e.g, GG02 [5], are based on modulated continuous-wave lasers and coherent detection, but unlike classical communication the optical power is ex-\n\nZ) Springer\n\n© The Author(s) 2023. Open Access This article is licensed under a Creative Commons Attribution 4.0 International License, which permits use, sharing, adaptation, distribution and reproduction in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if changes were made. The images or other third party material in this article are included in the article’s Creative Commons licence,unless indicatedotherwise in a credit line to the material. If material is not included in the article’s Creative Commons licence and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. To view a copy of this licence, visit http://creativecommons.org/licenses/by/4.0/.\n\nBrunner et al. EPJQuantumTechnology (2023) 10:38\n\n(2023) 10:38\n\nBrunner et al. EPJ Quantum Technology\n\ntremely attenuated. Protocol security is analysed under the assumption that all power lost between the transmitter and the receiver, a fraction typically close to unity, is collected by the eavesdropper. All noise on top of the unavoidable shot noise, which is a manifestation of the uncertainty principle in the measurement of a light state, might as well originate from an adversary. The no-cloning principle dictates that any attempt by the eavesdrop- per to obtain information on Alice and Bob’s data inevitably results in loss and noise [6]. As long as the eavesdropper’s information is below a threshold, it is still possible to distil a secure key [7, 8].\n\nA general obstacle to practical utilisation of QKD based on optical communication is the inherently limited key-generation distance. QKD is realised by very weak optical sig- nals that are ultimately absorbed in any physical medium. Periodic ampliﬁcation, which is a standard practice in optical telecommunication technology, cannot be used for QKD. Ampliﬁcation, which can be seen as an attempt of cloning unknown quantum states, has to introduce noise on the channel. This noise trace has to be regarded as eavesdrop- ping and usually prohibits key generation. Instead, the reach of quantum signals may be extended by means of special quantum communication devices, known as quantum re- peaters (see [9–11] for an overview of the state of the art). Such devices would not oblit- erate the described level of security, but the development of quantum repeaters is still in an early experimental stage. For this reason it is not straight-forward to design and deploy QKD networks that are analogous to telecommunication ones.\n\nAs of today, the standard approach to QKD networking is the “trusted repeater” prin- ciple. This amounts to stitching together ﬁnite distance QKD links, a link being a pair of a sender and a receiver, by trusted locations. QKD keys are generated in the individ- ual links and then retransmitted by means of classical, albeit ITS, cryptographic methods (see [12, 13] for details). The majority of present-day QKD links are ﬁxed links with a sender permanently connected to a receiver over a given quantum channel, typically an optical ﬁbre. A fully meshed QKD network with N nodes would require approximately N2 ﬁxed links. In view of the availability and cost of current QKD technology, such an exponential grow in the number of required devices limits the size of QKD networks.\n\nForthisreason,switchingofquantumchannelshasbeenproposed.Theﬁrstapproaches were done by selecting diﬀerent ﬁbres to connect several senders and receivers in a time multiplexing scheme [14–16]. In this manuscript we extend this approach, capitalising on the potential greater ﬂexibility of CV-QKD over discrete-variable QKD (DV-QKD), by allowing also wavelength multiplexing for a signiﬁcant increase of versatility. Abstract or small-scale wavelength switching has also been proposed earlier [17, 18]. Moreover, by utilising also the CV-QKD inherent higher tolerance to co-propagation with classical (much stronger) signals in optical ﬁbres [19] we demonstrate a substantial scaling-up of switching.\n\nIt should be noted that switching can signiﬁcantly reduce the number of required QKD devices that are situated within metropolitan-area locations but cannot increase the ﬁnite reach of QKD. This means that long-distance QKD still requires, as of today, trusted re- peaters. Without going into too much detail, we note that switching of quantum channels will be used in future end to-end quantum communication networks, sometimes popu- larlydubbed“thequantuminternet”[9,10,20].Suchnetworkswillrequireend-to-enden- tanglement realised by quantum repeaters. For cost reduction and to avoid massive over-\n\nPage 2 of 12\n\nBrunner et al. EPJQuantumTechnology (2023) 10:38\n\n(2023) 10:38\n\nBrunner et al. EP/ Quantum Technology\n\n10? 107 10° key rate [kb/s] lo q F | -@- ideal 4 F ideal AN | | |--- SNR 0.0125 a 10~* x - SNR 0.0118 ~ SNR 0.0114 x measured L L L L i L L L L L L L 0 2 4 6 8 10 12 14 16 18 20 22 24 channel attenuation [dB]\n\nFigure 1 Key rate over channel loss with a 12.5 MHz bandwidth quantum channel. “ideal AN” and “ideal” refer respectively to ideal error correction with and without artiﬁcial noise added at the receiver. It can be seen that the addition of artiﬁcial noise reduces the key rate in the low to medium loss regime but extends the reach. The curves labelled with “signal-to-noise ratio (SNR) x” are upper bounds for the key rate with the SNR target x of the artiﬁcial noise set to 0.0125 (–19.0 dB), 0.0118 (–19.3 dB), and 0.0114 (–19.4 dB), respectively. These curves are calculated with a ﬁxed-rate code and decoding failure probability corresponding to the target SNR. The transmit power and target SNR of the artiﬁcial noise are adapted to the channel situation for each measurement individually to maximise the key rate. The measured key rates suﬀer from a limited processing power available for the post-processing and can have a wide conﬁdence interval\n\nutilisation of resources, these repeaters could rely on optical switching for the distribution of entanglement.\n\nThe investigation of the switched CV-QKD network presented in this paper is embed- ded in the Madrid quantum network, which is a continuously growing environment for testing and developing quantum communication technologies [14, 21, 22].\n\n2 CV-QKD prototypes\n\nThe demonstrated switched QKD network is based on a 12.5 MHz-bandwidth low-noise and low-complexity CV-QKD system with Gaussian modulation. The system has evolved from the setup described in [23] to a phase- and polarisation-diverse modulation and re- ceiver structure.\n\nThe CV-QKD systems have an in-band synchronisation, only one dense wavelength di- vision multiplexing (DWDM) channel1 in the C-band in one direction is needed for the QKD operation. Additionally, a bidirectional, standard internet protocol (IP)-based rec- onciliation link is required. This link does not rely on a purely-optical point-to-point con- nection, it can be transported over any existing network infrastructure, e.g., Ethernet.\n\n1Without loss of generality, here and in the following we refer to the 100 GHz grid in the C-band deﬁned by ITU-T G.694.1.\n\nPage 3 of 12\n\nBrunner et al. EPJQuantumTechnology (2023) 10:38\n\n(2023) 10:38\n\nBrunner et al. EPJ Quantum Technology\n\nThe devices can be conﬁgured to transmit with any ﬁgure between 0.0004 and 40 pho- tons per symbol on average in the quantum band. This corresponds to a transmit power range of approximately –122 dBm to –72 dBm at a carrier frequency of 193.4 THz. The in-band synchronisation signals are typically 30 dB to 40 dB stronger than the quantum signal.Theerrorcorrectionrunswithasingleﬁxed-ratecode,whichsupportsaSNRdown to –19.5 dB. This is a receiver sensitivity of approximately –105 dBm with 2.5 dB of re- ceiver loss and heterodyne detection [24]. Excess noise powers smaller than 50 dB below the shot noise can be detected (–141 dBm in the signal bandwidth at 193.4 THz). With trusted detector noise [25] and an inherent system noise as low as 0.15 mSNU,2 the sys- tem supports up to 23 dB of channel loss. The inherent system noise is attributed to the eavesdropper.\n\nSimulated and measured key rates are depicted in Fig. 1 vs. the channel attenuation, in principle proportional to the ﬁbre-link length. In a metropolitan-area scenario the inser- tion loss of connectors and passive optical equipment and the state of the ﬁbre are likely to dominate the losses. All calculated curves in the plot follow [26] and assume optimistic values with 23 mSNU of trusted detector noise, 0.15 mSNU of untrusted system noise, and 2.5 dB of insertion loss in the receiver. These optimistic values are tight bounds to the span of actual values measured in the deployed devices.\n\nThe utilized error-correction code has a low error-correction eﬃciency at high SNR, but artiﬁcially added noise allows reducing the SNR to the eﬃcient regime [27, 28]. The artiﬁcially generated noise is added at the receiver after detection. It can reduce the infor- mation of the eavesdropper and extend the reach. While the error-correction eﬃciency improves linearly with an SNR reduction, the probability of an unsuccessful decoding in- creases rapidly close to the SNR limit. A careful selection of the target SNR for the artiﬁ- ciallyaddednoiseisnecessarytomaximisethekeyratedependingonthechannelsituation (see Fig. 1).\n\nThe ﬁnal key rate is several orders of magnitude smaller compared to the initial symbol rate of 12.5 MBd. This is a consequence of devoting most symbols to parameter estima- tion,ofalowcoderate,andofprivacyampliﬁcation.Thelimitedamountofcomputational resourcesin the prototypesis alsoa majorbottleneck fortheﬁnal key rate.The probability of a successful decoding depends on the amount of computational resources allowed for each decoding block. While more resources per block improve the probability of a suc- cessful decoding they reduce the number of blocks that can be processed per time with a ﬁxed amount of computational resources and a compromise has to be found.\n\nVulnerabilitytoside channelattacksandpossiblecountermeasures[2]arecurrentlynot considered.\n\n3 Optically-switched QKD network\n\nTheswitchedQKDnetworkisembeddedinthelargerMadridQKDnetwork[21].Asatel- lite map of the network can be found in [29]. The full sub-network conﬁguration with a focus on the switching and multiplexing setup is shown in Fig. 2. The seven nodes of the QKD-switching network are located all over the metropolitan area of Madrid and are in- terconnectedwithpreviouslydeployedﬁbres.Quirón,Quintín,Quijote,andQuevedoand\n\n2milli shot-noise unit (SNU), i.e., normalised with respect to the shot-noise power. In this contribution, all excess-noise ﬁgures are referred to the receiver.\n\nPage 4 of 12\n\nBrunner et al. EPJQuantumTechnology (2023) 10:38\n\nO-band O-band alien QKD —_O-band | | O-band —__, alien 3|.______>|E 3a, § @ | 34, . <4] FA BL 34) as a % a og xB Rye 4 Sey <3 og aL Ll & os 71x) ¢ & | 3 [pase - SLs E4|zZ dail — el ETS ars alien = =) Ls | > alien lien QKD eweM — lien © a) o S 8 2 Gy iS) demux mux 7 alien QKD <O-band | my <f alien QD classical <a! 4 . Ly . g) 038 >| + as 5| <2 18 ae 2/co8 & os | Zones Seow, | | | | sxpwom saa BBL copaneatien Qk demux mux 3.9km mux demux 7 raf leq|_|] LO2224> alien QKD lassical By 8) Le _ cassical Ss ex DWDM x DWDM OS ° . 1 3 5 < 5 o a> 0 I< as 3 x3 |e Ble xz Ss) og zk os fe] 2 _ Tenn wom | |\" | | sx pwoM, Ta aien KO | BP AR mux demux 6.5km demux mux x alien QKD <O-Pand] | Jol Tal classical <=] classical a <x DWDM 5x DWDM 2 iS 7 5 5 ag a a +5 $ 5 Fa 3 fej & | 2 eB 8 & alien QKD y V demux mux § 2 S lez 34 | 24 > alien classical —2* DWDM & a3 ae a 3 3 18 | vas . & & [so Les _, a8 as xe x os os\n\nQKD\n\ns 3\n\n£\n\nQKD\n\n2 2 Fj B fa}\n\n€ = S lez\n\n@kD\n\n.\n\n8\n\nFigure 2 Full conﬁguration of the switched QKD network with a focus on the QKD modules and reconﬁgurable optical add-drop multiplexers (ROADMs) interconnecting them. At least one lightpath can be created between any of the ﬁve senders and any of the ﬁve receivers, respectively. The arrow directions indicate the input and output ports of the switches, ﬁxed (de)multiplexers, and QKD devices. The number of occupied DWDM channels and the presence of an O-band channel are indicated for each multiplexer (mux) and demultiplexer (demux) with the arrows at the client side. A double-line arrow stands for multiple ﬁbres, the attached label indicates the number of occupied DWDM channels. “pass” refers to the pass-through lightpath of a (de)mux for all not-listed DWDM channels, e.g., all wavelengths but DWDM channel 34 in the link between Quijote and Quintín. Other classical and quantum communication infrastructure which does not intermingle with the switched QKD signals is omitted from the ﬁgure, e.g., the classical connection between\n\nQuintín and Quijote\n\nPage 5 of 12\n\nBrunner et al. EPJQuantumTechnology (2023) 10:38\n\n(2023) 10:38\n\nBrunner et al. EPJ Quantum Technology\n\nthe ﬁbres between them belong to the RediMadrid academic communication network. Concepción, Norte, and Distrito and the ﬁbres between them belong to Telefónica. All of the locations are production sites.\n\nFive QKD senders and ﬁve QKD receivers are distributed across seven nodes. The QKD modules are linked through ampliﬁer-free, low-loss ROADMs, which can switch the op- tical path for the QKD channels in a non-blocking fashion. A lightpath between any QKD sender and any QKD receiver can be established on at least one DWDM channel. While the QKD modules can be tuned to any wavelength in the C-band, the ﬁxed multiplexers constrain most QKD links to the DWDM channels at 193.4 THz (channel 34), 193.7 THz (channel 37), and 193.8 THz (channel 38).\n\nFigure 4 in [30] shows a photograph of the setup at one of the nodes. The top six height units in the picture are ﬁlled with two QKD modules and the associated servers used for the experiments described in this contribution. In the same picture, one can ﬁnd the em- ployed add-drops, optical switch, and OTN equipment among other things.\n\nWith the following three stages the ROADMs are adapted to the speciﬁc requirements of the respective node. In the ﬁrst stage, the classical and quantum signals not relevant for this experiment are dropped and the diﬀerent QKD wavelengths split into diﬀerent paths for each incoming direction, respectively. This is implemented with demultiplexers, e.g., at Quevedo’s inputs from Quijote and Norte in Fig. 2. The direct input from the QKD sender does not need this stage. In the second stage, a non-blocking, all optical N × N switch routes the diﬀerent QKD signals towards their respective destination, e.g., the op- tical switch at Quevedo. In the third stage, the diﬀerent QKD wavelengths are combined and added to the non-QKD signals for each direction, respectively. This is implemented with multiplexers, e.g., at Quevedo’s outputs towards Quijote and Norte in Fig. 2. The direct output into the QKD receiver does not need this stage.\n\nAs an example for a switched optical path, the QKD link between Quijote and Norte is described in the following. The QKD sender at Quijote would be conﬁgured to a sup- ported DWDM channel, channel 37 or 38. The output signal of this sender would then pass through the optical switch at Quijote, which needs to connect this QKD input to- wards the appropriate multiplexer port towards Quevedo. At Quevedo, the QKD signal would be dropped by the demultiplexer into the optical switch at Quevedo. This switch needs to connect this input signal to the appropriate multiplexer port towards Norte. At the other end of the line, at Norte, the QKD signal would be dropped again by the demul- tiplexer and fed into the optical switch. Finally, the optical switch at Norte would connect the QKD signal to the input port of the QKD receiver. As long as the total loss along such a path is supported by the QKD devices, a QKD link for key generation can be established.\n\nThe QKD links are multiplexed with classical communication links in most ﬁbres be- tween the diﬀerent nodes. Most of these ﬁbres carry also QKD links from other vendors in the O-band or C-band. The reconciliation links of the QKD devices are transported jointly with the control signals and encrypted data through a packet-switched network with network switches at every node. This dedicated network is not depicted in detail in Fig. 2, but it accounts for most of the classical channels between the diﬀerent nodes.\n\nThe multiplexing between Quijote, Quevedo, and Norte is established with two consec- utive multichannel optical add-drop multiplexers (OADMs). The ﬁve classical channels are combined in a ﬁrst OADM before they are added in a second OADM to the two quan-\n\nPage 6 of 12\n\nBrunner et al. EPJQuantumTechnology (2023) 10:38\n\n(2023) 10:38\n\nBrunner et al. EPJ Quantum Technology\n\ntum channels 37 and 38 and the alien QKD signal in the O-band. This is depicted with a single multiplexer in Fig. 2. The same is true vice versa for the demultiplexing side.\n\nIn the link between Quirón and Quijote the quantum channel is ﬁxed to channel 37 as it is simply connected as an alien wavelength to a free multiplexing port of the previously existing optical transport network (OTN) equipment. This link has three active classical channels plus our reconciliation link as a second alien wavelength. In the links Quijote to Quintín and Norte to Distrito the QKD channel is combined with the QKD channel of another vendor also in the C-band with single channel OADMs. Here, the QKD channel could be on any wavelength in the C-band except the single DWDM channel occupied by the alien QKD.\n\nThe multiplexing in the links Concepción to Distrito and Concepción to Norte is also implemented with two-stage multiplexers. In contrast to the central links, the QKD sig- nals here are ﬁrst multiplexed with a classical signal before they are added with an OADM to the alien QKD quantum and synchronisation channels. This ﬁrst multiplexer ﬁxes the QKD link Concepción to Distrito to DWDM channel 34 (193.4 THz). The QKD link Con- cepción to Norte is on the DWDM channel 37.\n\n4 Trusted transmit loss\n\nThe deployed CV-QKD prototypes support the conﬁguration of a trusted transmit loss. The idea of a trusted transmit loss is to allow the system operator to shift the trusted boundary within the trusted transmit perimeter. By default the trusted boundary is the output port of the QKD transmitter. Additionally conﬁgured trusted transmit loss can shift this, e.g., to the output of a multiplexer and/or optical switch the output of the QKD transmitter is connected to within the trusted node perimeter.\n\nIdeally, the trusted transmit loss is calibrated by comparing the optical output power of the QKD transmitter before and after the additionally trusted devices. Since such a calibration would lead to a possibly unwanted interruption of other traﬃc passing the same devices and adds an extra step when building the network, it is also acceptable to take conservative (secure) guesses about the insertion loss. Only the insertion loss that is certainly absorbed within the trusted transmit perimeter should be conﬁgured as trusted loss. In a multi-hop link only the insertion loss of the switch and/or multiplexer at the transmit node might be trusted, whereas the insertion loss of the switches, demultiplexers andmultiplexersofthenodesin-betweenoratthereceivermustnotberegardedastrusted transmit loss.\n\nIn the demonstrated network, each node is assumed to operate inside a trusted perime- ter (indicated by the grey boxes in Fig. 2) and the trusted boundary is always shifted to the boundary of the node. The trusted losses conﬁgured in the network at hand are listed in Table 1 and explained in more detail in the following. All assumed insertion losses have been checked to be lower than the actual insertion losses.\n\nThe 16-channel multiplexer at Quirón has more than 3.3 dB of insertion loss. Any con- nection from Quirón is conﬁgured with this ﬁgure as the trusted transmit loss.\n\nFor the optical switches at Quijote, Quevedo, and Norte an insertion loss of 0.5 dB each is used. The back-to-back links at Quijote, Quevedo, and Norte are each conﬁgured with thisinsertion lossastrustedtransmitloss. The single-channel OADMsatQuijotetowards Quintín and at Norte towards Distrito are assumed to have an insertion loss of 0.6 dB, re- spectively. The multi-channel OADMs between Quijote, Quevedo, and Norte have more\n\nPage 7 of 12\n\nBrunner et al. EPJQuantumTechnology (2023) 10:38\n\n(2023) 10:38\n\nBrunner et al. EPJ Quantum Technology\n\nQKD Quirén Concepcién QKD sender [37 Quijote Quevedo Norte sender ow QKD QKD oe QKD al a2 sender es receiver Ss sender [7 ae 37] 3 z zy aa 4 37 J ov ae QKD QKD QKD az anal | receiver sender receiver Fa QKD QKD receiver oe a receiver Quintin Distrito (a) Network configuration 1 QKD] Suitén Concepcion | OKD sender Quijote Quevedo Norte sender 37 a? s| QKD QKD QKD ow 32 sender receiver oe sender Se 35 83 nS \"Se Li 2x 37 aaa ers oe yi — S$ = 2 QKD QKD QKD ge aw receiver sender receiver —_ Quintin Distrito (b) Network configuration 2 QKD Quirén Concepcién | QKD sender |37 Quijote ot Quevedo Norte sender as QKD 32 QKD QKD a2 sender [77 \"| receiver} = 2% sender Ss ee Ey] es QkKD QKD sy QKD et -__,| ¥ [22 —____ sa receiver sender es receiver Rs a5 a Quintin Distrito (c) Network configuration 3\n\nFigure 3 Exemplary network conﬁgurations with all QKD senders and all QKD receivers active on the same DWDM channel 37. The given numbers are the measured channel loss and key rate handed over to the local key manager\n\nthan 0.9 dB of loss each. Except for the back-to-back links, the trusted transmit loss of all links from Quijote, Quevedo, and Norte are conﬁgured to 1.1 dB or 1.4 dB each, which is the sum of the insertion losses of the respective OADM and switch.\n\nFor the optical switch at Concepción an insertion loss of 0.3 dB is used. The connec- tion between Concepción and Norte is equipped at Concepción with a 40-channel multi- plexer with an assumed insertion loss of 4.1 dB followed by a multi-channel OADM with an assumed insertion loss of 0.9 dB. This concatenation is depicted as a single “mux” in Fig. 2. All links using this connection are conﬁgured with a trusted transmit loss of 5.3 dB. The connection towards Distrito is equipped with an 8-channel multiplexer followed by a multi-channel OADM. Insertion losses of 2.1 dB and 0.9 dB are conﬁgured, respectively. Again, this concatenation is depicted as a single “mux” in Fig. 2. The link Concepción to Distrito is conﬁgured with a trusted loss of 3.3 dB.\n\nPage 8 of 12\n\nBrunner et al. EPJQuantumTechnology (2023) 10:38\n\n(2023) 10:38\n\nBrunner et al. EPJ Quantum Technology\n\nOK Quirén same fiber Concepcién OKD sender [37 Quijote Quevedo | Norte sender | on QKD QKD | | QkD “Te a2 sender receiver {} sender ce a% | ee ao = K Ul 38 aa ¥ a3 25 es ag QkKD QKD QkKD le = receiver sender receiver No v QKD QKD receiver | 6 intin same fiber Distrito [receiver (a) Network configuration 4 QKD Quirén same fiber Concepcién QKD sender Quijote Quevedo Norte sender Ea \\ 3 a QKD \\ QKD QKD 62 sender \\\\ receiver sender as 38 \\ F 37 les si 4 33 32 r a3 ~ re ag QKD || aa} QKD \"s QKD receiver f at sender ai receiver ¥ | 32 QKD | oe QKD recev® | Quintin same fiber Distrito LTce¥er (b) Network configuration 5\n\nFigure 4 Exemplary network conﬁgurations with all QKD senders and all QKD receivers active on either DWDM channel 34, 37, or 38. Note that multiple QKD links can be active at the same time on the same ﬁbre in such a conﬁguration (only two ﬁbres connect diﬀerent nodes). The given numbers are the measured channel loss and key rate handed over to the local key manager\n\n5 Experimental results\n\nFigures 3 and 4 show several of the possible switching conﬁgurations, which can be achievedbyonlinereconﬁgurationoftheswitchesandDWDMchannelsoftheQKDmod- ules. All QKD links are on DWDM channel 37 in the conﬁgurations in Fig. 3, while some of the QKD links are in DWDM channels 34 or 38 in the conﬁgurations in Fig. 4. Note that there are four diﬀerent QKD links active in the ﬁbre pair between Quevedo and Norte in Fig. 4(a) and Quijote and Quevedo in Fig. 4(b), respectively. Taking the alien QKD links in the O-band into account, there are ﬁve diﬀerent QKD links active in these ﬁbre pairs.\n\nTable 1 lists the conﬁgured trusted transmit loss, measured channel loss, and measured key rate for all links possible in the network conﬁguration described in Fig. 2. The given key rates are all within the range supported by the employed QKD devices, but they are preliminary ﬁgures as ﬁnite-size eﬀects could not be considered to their full extent for all scenarios. Although the systems were installed and running during a very long time period (close to three years), no long-term measurements of the key rate have been sys- tematicallydone.Thereisnoone-to-onemappingbetweenthemeasuredchannellossand the measured key rates because the receiver devices experience diﬀerent system noise and insertion loss. On the one hand this is because the receivers are diﬀerent modules and on the other hand the receivers are situated in diﬀerently air-conditioned environments since these are production facilities and not controlled laboratories. Some of the reported key rates are at the very edge of the rates supported by the modules and cannot be guaranteed in general. They might not be feasible if the receivers were swapped or the environmental conditions in the facilities changed.\n\nPage 9 of 12\n\nBrunner et al. EPJQuantumTechnology (2023) 10:38\n\nTable 1 List of supported key rates and measured channel loss\n\nSender node Receiver node Optical channel Trusted loss Channel loss [THz] [dB] [dB] Concepción Distrito 193.4 3.3 19.8 (via Norte) 193.7 5.3 20.1 Norte 193.7 5.3 11.1 Quevedo 193.7 5.3 15.3 Quijote 193.7 too high Quintín 193.7 too high Norte Distrito 193.7 1.1 10.2 193.8 1.1 10.5 Norte 193.7 0.5 1.6 193.8 0.5 1.7 Quevedo 193.7 1.4 5.1 193.8 1.4 5.2 Quijote 193.7 1.4 10.3 193.8 1.4 12.1 Quintín 193.7 1.4 20.9 193.8 1.4 22.5 Quevedo Distrito 193.7 1.4 13.3 193.8 1.4 13.3 Norte 193.7 1.4 3.8 193.8 1.4 4.3 Quevedo 193.7 0.5 0.1 193.8 0.5 0.2 Quijote 193.7 1.4 4.8 193.8 1.4 5.9 Quintín 193.7 1.4 15.5 193.8 1.4 17.3 Quijote Distrito 193.7 1.4 21.0 193.8 1.4 20.9 Norte 193.7 1.4 11.5 193.8 1.4 11.5 Quevedo 193.7 1.4 6.6 193.8 1.4 6.9 Quijote 193.7 0.5 1.2 193.8 0.5 1.3 Quintín 193.7 1.1 11.4 193.8 1.1 11.8 Quirón Distrito 193.7 too high Norte 193.7 too high Quevedo 193.7 3.3 19.0 Quijote 193.7 3.3 12.1 Key rate [kb/s] 0.09 0.11 7.4 2.4 0 0 8.4 8.1 17 17 9.0 3.2 7.1 5.2 0.07 0.01 4.3 4.3 8.7 12 14 14 11 7.8 1.8 0.7 0.04 0.04 6.0 6.6 4.5 10 12 16 5.5 6.2 0 0 0.07 3.3\n\nQuintín\n\n193.7\n\ntoo high\n\nSince the launch powers into the ﬁbres of the classical channels are rather weak (< 0 dBm) and the distances are mostly below 10km, there is only negligible Raman noise to be expected (< 0.05 mSNU) [31]. Especially the links towards Quintín and over the con- nectionNortetoDistritoexperienceverylittleRamannoiseastheyonlycopropagatewith very weak alien-QKD signals in the last hop. The variation in the channel losses between diﬀerent DWDM channels is mostly due to the diﬀerent insertion losses of the optical connections.\n\nWith ﬁve senders and ﬁve receivers there are up to twenty-ﬁve diﬀerent, loop-free links in a fully meshed network on the same DWDM channel. In contrast, with ﬁxed point-to- point QKD only ﬁve links could be established with ﬁve QKD pairs. Twenty out of these twenty-ﬁvelinksareoperationalinthedemonstratednetworkonDWDMchannel37.The other ﬁve have a too-high channel loss. Three of the twenty operational links are back-to-\n\n0\n\nPage 10 of 12\n\nBrunner et al. EPJQuantumTechnology (2023) 10:38\n\nbacklinksinthesamenode,whichareusefulformaintenanceandtestingpurposes.There are ﬁfteen operational links on DWDM channel 38, again three of them are back-to-back links, and one operational link on DWDM channel 34. All together thirty-six loop-free links could be operated successfully.\n\n6 Conclusion\n\nAn elaborate switched QKD network implementation, which was demonstrated in the Madrid quantum testbed, is described in detail. The switching is enabled by specialised ROADMs and online conﬁgurable DWDM channels in the QKD modules. The QKD modules support any-to-any connectivity and promptly adapt to changing link character- istics,allowing36diﬀerent,loop-freeQKDlinkstobeestablishedinasmall-sizednetwork with only ﬁve QKD senders and ﬁve QKD receivers. Avoiding intermediate trusted nodes and the need to have static ﬁbre links for the quantum channel between any two nodes in the network demonstrates the relevance of switching on the path to large-scale QKD networks.\n\nFunding\n\nWe would like to thank the project MadQ-CM (Madrid Quantum de la Comunidad de Madrid) funded by the European Union (NextGenerationEU, PRTR-C17.I1) and by the Comunidad de Madrid (Programa de Acciones Complementarias), the project Quantum Information Technologies in Madrid (QUITEMAD-CM S2018/TCS-4342), and the European Union’s Horizon Europe research and innovation funding program under the project “Quantum Secure Networks Partnership” (QSNP, grant agreement No 101114043).\n\nAbbreviations\n\nCV-QKD, continuous-variable QKD; demux, demultiplexer; DV-QKD, discrete-variable QKD; DWDM, dense wavelength division multiplexing; IP, internet protocol; ITS, information-theoretically secure; mux, multiplexer; OADM, optical add-drop multiplexer; OTN, optical transport network; QKD, quantum key distribution; ROADM, reconﬁgurable optical add-drop multiplexer; SNR, signal-to-noise ratio; SNU, shot-noise unit.\n\nAvailability of data and materials\n\nNot applicable.\n\nDeclarations\n\nEthics approval and consent to participate Not applicable.\n\nConsent for publication\n\nNot applicable.\n\nCompeting interests\n\nThe authors declare no competing interests.\n\nAuthor contributions\n\nH. H. Brunner, M. Peev, J. P. Brito, V. Martin, A. A. Pastor, and D. R. Lopez conceived the idea for the study. H. H. Brunner, C.-H. F. Fung, and M. Peev developed the QKD devices. R. B. Mendez, J. P. Brito, L. Ortiz, and V. Martin developed the key management and network layer. H. H. Brunner, C.-H. F. Fung, R. B. Mendez, J. P. Brito, L. Ortiz, V. Martin, J. M. Rivas-Moscoso, and F. Jimenez installed the ﬁeld deployment as well as operated the QKD devices and network layer. H. H. Brunner performed the measurements and created the ﬁgures, then wrote the manuscript with feedbacks from all authors. All authors contributed to the extensive discussions of the results.\n\nAuthor details\n\n1Munich Research Center, Huawei Technologies Duesseldorf GmbH, Munich, Germany. 2Center for Computational Simulation, Universidad Politécnica de Madrid, Madrid, Spain. 3Telefónica gCTIO/I+D, Madrid, Spain.\n\nPublished online: 21 September 2023\n\nReceived: 13 June 2023 Accepted: 7 September 2023\n\nReferences\n\n1. Diamanti E, Lo HK, Qi B, Yuan Z. Practical challenges in quantum key distribution. npj Quantum Inf. 2016;2:16025. https://doi.org/10.1038/npjqi.2016.25.\n\n2. Diamanti E, Leverrier A. Distributing secret keys with quantum continuous variables: principle, security and implementations. Entropy. 2015;17(9):6072–92. https://doi.org/10.3390/e17096072.\n\nPage 11 of 12\n\nBrunner et al. EPJQuantumTechnology (2023) 10:38\n\n3. Kaplan M, Leurent G, Leverrier A, Naya-Plasencia M. Breaking symmetric cryptosystems using quantum period ﬁnding. In: Robshaw M, Katz J, editors. Advances in cryptology—CRYPTO 2016. LNCS. vol. 9815. Berlin: Springer; 2016. p. 207–37.\n\n4. Shor PW. Algorithms for quantum computation: discrete logarithms and factoring. In: Proceedings 35th annual symposium on foundations of computer science. 1994. p. 124–34.\n\n5. Grosshans F, Grangier P. Continuous variable quantum cryptography using coherent states. Phys Rev Lett. 2002;88(5):057902. https://doi.org/10.1103/PhysRevLett.88.057902.\n\n6. Wootters WK, Zurek WH. A single quantum cannot be cloned. Nature. 1982;299:802–3. https://doi.org/10.1038/299802a0.\n\n7. Leverrier A. Composable security proof for continuous-variable quantum key distribution with coherent states. Phys Rev Lett. 2015;114(7):070501. https://doi.org/10.1103/PhysRevLett.114.070501.\n\n8. Leverrier A. Security of continuous-variable quantum key distribution via a Gaussian de Finetti reduction. Phys Rev Lett. 2017;118:200501. https://doi.org/10.1103/PhysRevLett.118.200501.\n\n9. Azuma K, Economou SE, Elkouss D, Hilaire P, Jiang L, Lo HK et al. Quantum repeaters: from quantum networks to the quantum Internet. 2022. Preprint.\n\n10. Azuma K, Kato G. Aggregating quantum repeaters for the quantum Internet. Phys Rev A. 2017;96:032332. https://doi.org/10.1103/PhysRevA.96.032332.\n\n11. Briegel HJ, Dür W, Cirac JI, Zoller P. Quantum repeaters: the role of imperfect local operations in quantum communication. Phys Rev Lett. 1998;81:5932–5. https://doi.org/10.1103/PhysRevLett.81.5932.\n\n12. Mehic M, Niemiec M, Rass S, Ma J, Peev M, Aguado A et al. Quantum key distribution: a networking perspective. ACM Comput Surv. 2020;53(5):96. https://doi.org/10.1145/3402192.\n\n13. Cao Y, Zhao Y, Wang Q, Zhang J, Ng SX, Hanzo L. The evolution of quantum key distribution networks: on the road to the qinternet. IEEE Commun Surveys Tuts. 2022;24(2):839–94. https://doi.org/10.1109/COMST.2022.3144219.\n\n14. Lopez DR, Martin V, Lopez V, de la Iglesia F, Pastor A, Brunner H et al. Demonstration of software deﬁned network services utilizing quantum key distribution fully integrated with standard telecommunication network. Quantum Rep. 2020;2(3):453–8. https://doi.org/10.3390/quantum2030032.\n\n15. Yang YH, Li PY, Ma SZ, Qian XC, Zhang KY, Wang LJ et al. All optical metropolitan quantum key distribution network with post-quantum cryptography authentication. Opt Express. 2021;29(16):25859–67. https://doi.org/10.1364/OE.432944.\n\n16. Martinez-Mateo J, Ciurana A, Martin V. Quantum key distribution based on selective post-processing in passive optical networks. IEEE Photonics Technol Lett. 2014;26(9):881–4. https://doi.org/10.1109/LPT.2014.2308921.\n\n17. Ciurana A, Martínez-Mateo J, Peev M, Poppe A, Walenta N, Zbinden H et al. Quantum metropolitan optical network based on wavelength division multiplexing. Opt Express. 2014;22(2):1576–93. https://doi.org/10.1364/OE.22.001576.\n\n18. Wang R, Tessinari RS, Hugues-Salas E, Bravalheri A, Uniyal N, Muqaddas AS et al. End-to-dnd quantum secured inter-domain 5G service orchestration over dynamically switched ﬂex-grid optical networks enabled by a q-ROADM. J Lightwave Technol. 2020;38(1):139–49. https://doi.org/10.1109/JLT.2019.2949864.\n\n19. Karinou F, Brunner HH, Fung F, Comandar L, Bettelli S, Hillerkuss D et al. Towards the integration of CV quantum key distribution in deployed optical networks. IEEE Photonics Technol Lett. 2018;30(7):650–3. https://doi.org/10.1109/LPT.2018.2810334.\n\n20. Kimble HJ. The quantum Internet. Nature. 2008;453:1023–30. https://doi.org/10.1038/nature07127.\n\n21. García Cid MI, Ortiz Martín L, Ayuso M, Madrid V. Quantum network: a ﬁrst step to quantum Internet. In: 16th int. conf. Availability, reliability and security—ARES 21. Association for Computing Machinery; 2021.\n\n22. Martin V, Aguado A, Salas P, Sanz AL, Brito JP, Lopez DR et al. The Madrid quantum network: a quantum-classical integrated infrastructure. In: OSA advanced photonics congress (AP) 2019. Optica Publishing Group; 2019.\n\n23. Brunner HH, Comandar LC, Karinou F, Bettelli S, Hillerkuss D, Fung CHF et al. A low-complexity heterodyne CV-QKD architecture. In: 19th int. conf. Transparent optical networks—ICTON 2017. New York: IEEE Press; 2017.\n\n24. Kikuchi K. Fundamentals of coherent optical ﬁber communications. J Lightwave Technol. 2016;34(1):157–79. https://doi.org/10.1109/JLT.2015.2463719.\n\n25. Brunner HH, Bettelli S, Fung CHF, Peev M. Precise noise calibration for CV-QKD. In: 22nd int. conf. Transparent optical networks—ICTON 2020. New York: IEEE Press; 2020.\n\n26. Laudenbach F, Pacher C, Fung CHF, Poppe A, Peev M, Schrenk B et al. Continuous-variable quantum key distribution with Gaussian modulation—the theory of practical implementations. 2017. Preprint.\n\n27. Fung CHF. inventor; Huawei Technologies Duesseldorf GmbH, assignee. Quantum key distribution communication devices, methods and systems. EP3656079A1; 2022.\n\n28. Usenko VC, Filip R. Trusted noise in continuous-variable quantum key distribution: a threat and a defense. Entropy. 2016;18(1):20. https://doi.org/10.3390/e18010020.\n\n29. Hübel H, Kutschera F, Pacher C, Achleitner M, Strasser W, Vedovato F et al. Deployed QKD networks in Europe. In: Optical ﬁber communication conference (OFC). Optica Publishing Group; 2023.\n\n30. van Deventer O, Spethmann N, Loeﬄer M, Amoretti M, van den Brink R, Bruno N et al. Towards European standards for quantum technologies. EPJ Quantum Technol. 2022;9:33 https://doi.org/10.1140/epjqt/s40507-022-00150-1.\n\n31. Karinou F, Comandar L, Brunner HH, Hillerkuss D, Fung F, Bettelli S et al. Experimental evaluation of the impairments on a QKD system in a 20-channel WDM co-existence scheme. In: Photonics society summer topical meeting series (SUM). New York: IEEE Press; 2017. p. 145–6.\n\nPublisher’s Note\n\nSpringer Nature remains neutral with regard to jurisdictional claims in published maps and institutional aﬃliations.\n\nPage 12 of 12"
+}
